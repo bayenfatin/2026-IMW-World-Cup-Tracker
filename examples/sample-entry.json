@@ -1,0 +1,17 @@
+{
+  "name": "Example Player",
+  "groups": {
+    "A": ["MEX", "KOR", "RSA", "CZE"],
+    "B": ["SUI", "CAN", "QAT", "BIH"]
+  },
+  "knockout": {
+    "r32-1": "MEX",
+    "r32-2": "GER",
+    "final": "BRA"
+  },
+  "finalScore": {
+    "home": 2,
+    "away": 1
+  },
+  "updatedAt": "2026-06-01T12:00:00.000Z"
+}
