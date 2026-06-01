@@ -31,8 +31,9 @@ import {
   submitToSharePoint,
   getSharePointListHint,
 } from './lib/sharepoint.js';
+import { assetUrl } from './lib/base.js';
 
-const LOGO_URL = `${import.meta.env.BASE_URL}assets/imw-logo.png`;
+const LOGO_URL = assetUrl('assets/imw-logo.png');
 
 let state = loadState();
 let activeTab = 'home';
