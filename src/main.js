@@ -28,7 +28,6 @@ import {
 import {
   isSharePointConfigured,
   submitToSharePoint,
-  getSharePointListHint,
 } from './lib/sharepoint.js';
 import { assetUrl } from './lib/base.js';
 
