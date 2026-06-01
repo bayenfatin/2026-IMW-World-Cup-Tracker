@@ -111,7 +111,6 @@ function countCompletedGroups(groups) {
 }
 
 function renderHome() {
-  const maxPts = getMaxGroupPoints();
   const groupWindow = GAME_CONFIG.windows.groupStage;
 
   return `
@@ -124,8 +123,7 @@ function renderHome() {
     <section class="panel">
       <h2>Phase 1 — Group stage predictions</h2>
       <p class="muted">
-        Rank every team in all 12 groups from <strong>1st through 4th place</strong>.
-        Knockout bracket picks open after the group stage window closes.
+        Rank every team in all 12 groups in the order you think they will finish (1st through 4th).
       </p>
       <div class="callout">
         <strong>Submission window:</strong>
@@ -134,8 +132,8 @@ function renderHome() {
       </div>
       ${
         isSharePointConfigured()
-          ? `<div class="callout success"><strong>SharePoint connected.</strong> Submit your rankings directly to the <em>${getSharePointListHint()}</em> list.</div>`
-          : `<div class="callout warning"><strong>SharePoint pending setup.</strong> An organizer must add the webhook URL in config — see <code>docs/sharepoint-setup.md</code>.</div>`
+          ? `<div class="callout success"><strong>Ready to submit.</strong> Complete your picks on the Group Stage tab and click <strong>Submit picks</strong>.</div>`
+          : `<div class="callout warning"><strong>Submission pending setup.</strong> An organizer must connect SharePoint — see <code>docs/sharepoint-setup.md</code>.</div>`
       }
     </section>
 
@@ -143,40 +141,58 @@ function renderHome() {
       <h2>How to play</h2>
       <ol class="muted">
         <li>Enter your name and IMW email, then save.</li>
-        <li>Open <strong>Group Stage</strong> and rank teams in every group.</li>
-        <li>Click <strong>Submit to SharePoint</strong> before ${formatDateRange(groupWindow.start, groupWindow.end).split('–')[1]?.trim() || 'Jun 10'}.</li>
+        <li>Click the <strong>Group Stage</strong> tab and rank teams in every group in the order you think they will finish.</li>
+        <li>Click <strong>Submit picks</strong> before the submission window closes (${formatDateRange(groupWindow.start, groupWindow.end)}).</li>
+        <li>See the <strong>Rules</strong> tab for scoring details.</li>
         <li>Track standings on the <strong>Leaderboard</strong> once results are entered.</li>
       </ol>
-      <p class="muted">Group stage maximum: <strong>${maxPts} points</strong>.</p>
     </section>
 
     <section class="panel upcoming-phase">
       <h2>Coming next — Knockout stage</h2>
       <p class="muted">
-        After group play ends, you'll pick Round of 32 winners in two windows
-        (Jun 25–26 for the first three matches, then Jun 29 for the rest).
-        Bracket slots involving third-place teams will be refined once the group stage finishes.
+        You will only need to pick game winners for this round. The knockout stage is split into two phases since this round begins on a weekend:
       </p>
+      <ul class="muted">
+        <li><strong>June 25–26:</strong> Pick the winners of the first 3 Round of 32 games.</li>
+        <li><strong>June 29:</strong> Pick game winners for the balance of the Round of 32 and all remaining rounds.</li>
+        <li><strong>Final score:</strong> Guess the score of the Final game (tiebreaker only).</li>
+      </ul>
+      <p class="muted">See the <strong>Rules</strong> tab for scoring.</p>
     </section>
   `;
 }
 
 function renderRules() {
   const g = GAME_CONFIG.scoring.group;
+  const k = GAME_CONFIG.scoring.knockout;
 
   return `
     <section class="panel">
-      <h2>Scoring — Group stage (active now)</h2>
+      <h2>Scoring — Group stage</h2>
+      <p class="muted">Points awarded for correctly ranking teams in each group.</p>
       <ul>
         <li><strong>${g.perPosition} point</strong> for each team in the correct finishing position (1st–4th).</li>
-        <li><strong>${g.winnerBonus} bonus point</strong> if you correctly pick the group winner.</li>
-        <li>12 groups × up to 5 points = <strong>${getMaxGroupPoints()} points</strong>.</li>
+        <li><strong>${g.winnerBonus} bonus point</strong> for correctly picking the group winner.</li>
       </ul>
 
-      <h3>Knockout stage (opens later)</h3>
+      <h2>Scoring — Knockout stage (opens June 25th)</h2>
+      <p class="muted">Points awarded for selecting the correct winner of each game. Point values increase each round:</p>
+      <ul>
+        <li>Round of 32 — <strong>${k.r32} point</strong></li>
+        <li>Round of 16 — <strong>${k.r16} points</strong></li>
+        <li>Quarter-finals — <strong>${k.qf} points</strong></li>
+        <li>Semi-finals — <strong>${k.sf} points</strong></li>
+        <li>Final — <strong>${k.final} points</strong></li>
+      </ul>
+      <p class="muted">The Final score prediction does not earn points — it is used as a tiebreaker only.</p>
+
+      <h2>Winner</h2>
       <p class="muted">
-        Round of 32 (1 pt), Round of 16 (2 pts), Quarter-finals (4 pts),
-        Semi-finals (8 pts), Final (16 pts). Final score prediction used as tiebreaker only.
+        The person with the highest combined point total from both the Group and Knockout stages wins the pool.
+      </p>
+      <p class="muted">
+        <strong>Tiebreaker:</strong> If multiple people have the same total points, the score prediction of the Final game will be used.
       </p>
     </section>
   `;
@@ -196,8 +212,8 @@ function renderGroups() {
         ${renderStatusBadge('groupStage')}
       </div>
       <p class="muted">
-        Rank every team in each group from 1st to 4th.
-        Window: ${formatDateRange(GAME_CONFIG.windows.groupStage.start, GAME_CONFIG.windows.groupStage.end)}.
+        Rank every team in each group in the order you think they will finish (1st through 4th).
+        Submission window: ${formatDateRange(GAME_CONFIG.windows.groupStage.start, GAME_CONFIG.windows.groupStage.end)}.
       </p>
       <p class="progress-hint">${completed} of ${GROUPS.length} groups completed</p>
       ${!editable ? '<p class="muted">This window is closed. View-only unless admin is unlocked.</p>' : ''}
@@ -224,11 +240,9 @@ function renderGroups() {
       </div>
 
       <div class="actions-row">
-        <button class="secondary" id="save-groups" ${editable ? '' : 'disabled'}>Save draft locally</button>
         <button class="primary" id="submit-sharepoint" ${editable && spReady && !isSubmitting ? '' : 'disabled'}>
-          ${isSubmitting ? 'Submitting…' : 'Submit to SharePoint'}
+          ${isSubmitting ? 'Submitting…' : 'Submit picks'}
         </button>
-        <button class="ghost" id="export-entry">Export JSON backup</button>
       </div>
       ${
         !spReady
@@ -244,19 +258,26 @@ function renderKnockoutComingSoon() {
     <section class="panel coming-soon-panel">
       <h2>Knockout stage</h2>
       <p class="muted">
-        Bracket predictions open after the group stage submission window closes.
-        Third-place team matchups will be finalized once group results are known.
+        Pick the winning team for each knockout game. The first prediction window opens June 25th — before the on-field group stage has finished.
+        Bracket matchups will be set up by the organizer before each pick window opens.
       </p>
-      <div class="timeline" style="max-width:520px;margin:1.5rem auto 0;text-align:left">
+      <div class="timeline" style="max-width:560px;margin:1.5rem auto 0;text-align:left">
         <div class="timeline-item">
-          <div><strong>First 3 Round of 32 games</strong></div>
+          <div>
+            <strong>Phase 1 — June 25–26</strong>
+            <div class="muted">Pick the winners of the first 3 Round of 32 games.</div>
+          </div>
           <div>${formatDateRange(GAME_CONFIG.windows.knockoutEarly.start, GAME_CONFIG.windows.knockoutEarly.end)}</div>
         </div>
         <div class="timeline-item">
-          <div><strong>Remaining knockout picks + Final score</strong></div>
+          <div>
+            <strong>Phase 2 — June 29</strong>
+            <div class="muted">Pick winners for the balance of the Round of 32 and all remaining rounds, plus the Final score (tiebreaker).</div>
+          </div>
           <div>${formatDateRange(GAME_CONFIG.windows.knockoutRest.start, GAME_CONFIG.windows.knockoutRest.end)}</div>
         </div>
       </div>
+      <p class="muted" style="margin-top:1rem">See the <strong>Rules</strong> tab for scoring.</p>
     </section>
   `;
 }
@@ -499,18 +520,6 @@ function bindEvents() {
     showToast(`Saved — ${name}`);
   });
 
-  document.getElementById('save-groups')?.addEventListener('click', () => {
-    const entry = collectGroupPicksFromDom(ensureEntry());
-    const error = validateGroupPredictions(entry.groups);
-    if (error) {
-      showToast(error, true);
-      return;
-    }
-    state.entry = entry;
-    persist();
-    showToast('Draft saved on this device.');
-  });
-
   document.getElementById('submit-sharepoint')?.addEventListener('click', async () => {
     const entry = collectGroupPicksFromDom(ensureEntry());
     if (!entry.name) {
@@ -530,7 +539,7 @@ function bindEvents() {
       await submitToSharePoint(entry);
       state.entry = entry;
       saveState(state);
-      showToast(`Submitted to SharePoint — ${entry.name}`);
+      showToast(`Picks submitted — ${entry.name}`);
     } catch (err) {
       showToast(err.message || 'SharePoint submission failed.', true);
     } finally {
