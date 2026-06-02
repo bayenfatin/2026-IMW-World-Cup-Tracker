@@ -6,7 +6,11 @@ export function getLeaderboardEntries(state = {}) {
   const remoteEntries = state.remoteEntries ?? [];
   const localEntries = state.allEntries ?? [];
 
-  let merged = remoteEntries.length ? [...remoteEntries] : [...POOL_ENTRIES];
+  let merged = [...POOL_ENTRIES];
+
+  for (const entry of remoteEntries) {
+    merged = addOrUpdateEntry(merged, entry);
+  }
 
   for (const entry of localEntries) {
     merged = addOrUpdateEntry(merged, entry);

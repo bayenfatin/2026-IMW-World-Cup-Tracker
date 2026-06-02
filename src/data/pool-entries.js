@@ -11,26 +11,26 @@ function poolEntry(name, email, groups, updatedAt) {
   };
 }
 
-/** Official pool entries synced from MS Forms / OneDrive log. */
+/** Official pool entries synced from OneDrive Group Stage Entries.xlsx */
 export const POOL_ENTRIES = [
   poolEntry(
-    'Jackson Lau',
-    'jackson.lau@imw.ca',
+    'Abner Chinchilla',
+    'abner.chinchilla@imw.ca',
     {
-      A: ['KOR', 'MEX', 'CZE', 'RSA'],
+      A: ['MEX', 'KOR', 'CZE', 'RSA'],
       B: ['SUI', 'CAN', 'BIH', 'QAT'],
       C: ['BRA', 'MAR', 'SCO', 'HAI'],
-      D: ['TUR', 'AUS', 'PAR', 'USA'],
-      E: ['GER', 'ECU', 'CIV', 'CUW'],
+      D: ['USA', 'TUR', 'AUS', 'PAR'],
+      E: ['GER', 'CIV', 'ECU', 'CUW'],
       F: ['NED', 'JPN', 'SWE', 'TUN'],
-      G: ['BEL', 'NZL', 'EGY', 'IRN'],
+      G: ['BEL', 'EGY', 'IRN', 'NZL'],
       H: ['ESP', 'URU', 'KSA', 'CPV'],
       I: ['FRA', 'NOR', 'SEN', 'IRQ'],
       J: ['ARG', 'AUT', 'ALG', 'JOR'],
-      K: ['COL', 'POR', 'COD', 'UZB'],
+      K: ['POR', 'COL', 'COD', 'UZB'],
       L: ['ENG', 'CRO', 'GHA', 'PAN'],
     },
-    '2026-06-02T08:32:23.000Z'
+    '2026-06-02T20:22:07.614Z'
   ),
   poolEntry(
     'Andre Dancs',
@@ -52,6 +52,25 @@ export const POOL_ENTRIES = [
     '2026-06-02T09:48:06.000Z'
   ),
   poolEntry(
+    'Gary Ghag',
+    'gary.ghag@imw.ca',
+    {
+      A: ['MEX', 'KOR', 'CZE', 'RSA'],
+      B: ['SUI', 'CAN', 'QAT', 'BIH'],
+      C: ['BRA', 'MAR', 'SCO', 'HAI'],
+      D: ['USA', 'TUR', 'PAR', 'AUS'],
+      E: ['GER', 'ECU', 'CIV', 'CUW'],
+      F: ['NED', 'JPN', 'SWE', 'TUN'],
+      G: ['BEL', 'IRN', 'EGY', 'NZL'],
+      H: ['ESP', 'URU', 'KSA', 'CPV'],
+      I: ['FRA', 'SEN', 'NOR', 'IRQ'],
+      J: ['ARG', 'AUT', 'ALG', 'JOR'],
+      K: ['POR', 'COL', 'COD', 'UZB'],
+      L: ['ENG', 'CRO', 'PAN', 'GHA'],
+    },
+    '2026-06-02T20:06:04.596Z'
+  ),
+  poolEntry(
     'Gary Lau',
     'Gary.Lau@imw.ca',
     {
@@ -69,5 +88,24 @@ export const POOL_ENTRIES = [
       L: ['ENG', 'CRO', 'PAN', 'GHA'],
     },
     '2026-06-02T11:17:48.000Z'
+  ),
+  poolEntry(
+    'Jackson Lau',
+    'jackson.lau@imw.ca',
+    {
+      A: ['KOR', 'MEX', 'CZE', 'RSA'],
+      B: ['SUI', 'CAN', 'BIH', 'QAT'],
+      C: ['BRA', 'MAR', 'SCO', 'HAI'],
+      D: ['TUR', 'AUS', 'PAR', 'USA'],
+      E: ['GER', 'ECU', 'CIV', 'CUW'],
+      F: ['NED', 'JPN', 'SWE', 'TUN'],
+      G: ['BEL', 'NZL', 'EGY', 'IRN'],
+      H: ['ESP', 'URU', 'KSA', 'CPV'],
+      I: ['FRA', 'NOR', 'SEN', 'IRQ'],
+      J: ['ARG', 'AUT', 'ALG', 'JOR'],
+      K: ['COL', 'POR', 'COD', 'UZB'],
+      L: ['ENG', 'CRO', 'GHA', 'PAN'],
+    },
+    '2026-06-02T08:32:23.000Z'
   ),
 ];
