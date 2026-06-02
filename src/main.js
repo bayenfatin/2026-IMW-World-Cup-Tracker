@@ -18,6 +18,7 @@ import {
   exportEntry,
   importJsonFile,
   addOrUpdateEntry,
+  getLeaderboardEntries,
 } from './lib/storage.js';
 import {
   isAdminUnlocked,
@@ -283,17 +284,13 @@ function renderKnockoutComingSoon() {
 
 function renderLeaderboard() {
   const results = ensureResults();
-  const entries = state.allEntries.length
-    ? state.allEntries
-    : state.entry?.name
-      ? [state.entry]
-      : [];
+  const entries = getLeaderboardEntries(state.allEntries);
 
   if (!entries.length) {
     return `
       <section class="panel empty-state">
         <h2>Leaderboard — Group stage</h2>
-        <p>No local entries yet. Submissions in SharePoint can be scored here once an admin imports or enters results.</p>
+        <p>No pool entries yet. Submissions will appear here once players submit picks.</p>
       </section>`;
   }
 

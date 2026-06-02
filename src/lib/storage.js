@@ -1,4 +1,14 @@
+import { POOL_ENTRIES } from '../data/pool-entries.js';
+
 const STORAGE_KEY = 'imw-wc-2026';
+
+export function getLeaderboardEntries(allEntries = []) {
+  let merged = [...POOL_ENTRIES];
+  for (const entry of allEntries) {
+    merged = addOrUpdateEntry(merged, entry);
+  }
+  return merged;
+}
 
 export function loadState() {
   try {

@@ -1,0 +1,73 @@
+import { createEmptyKnockoutPredictions } from '../lib/scoring.js';
+
+function poolEntry(name, email, groups, updatedAt) {
+  return {
+    name,
+    email,
+    groups,
+    knockout: createEmptyKnockoutPredictions(),
+    finalScore: { home: null, away: null },
+    updatedAt,
+  };
+}
+
+/** Official pool entries synced from MS Forms / OneDrive log. */
+export const POOL_ENTRIES = [
+  poolEntry(
+    'Jackson Lau',
+    'jackson.lau@imw.ca',
+    {
+      A: ['KOR', 'MEX', 'CZE', 'RSA'],
+      B: ['SUI', 'CAN', 'BIH', 'QAT'],
+      C: ['BRA', 'MAR', 'SCO', 'HAI'],
+      D: ['TUR', 'AUS', 'PAR', 'USA'],
+      E: ['GER', 'ECU', 'CIV', 'CUW'],
+      F: ['NED', 'JPN', 'SWE', 'TUN'],
+      G: ['BEL', 'NZL', 'EGY', 'IRN'],
+      H: ['ESP', 'URU', 'KSA', 'CPV'],
+      I: ['FRA', 'NOR', 'SEN', 'IRQ'],
+      J: ['ARG', 'AUT', 'ALG', 'JOR'],
+      K: ['COL', 'POR', 'COD', 'UZB'],
+      L: ['ENG', 'CRO', 'GHA', 'PAN'],
+    },
+    '2026-06-02T08:32:23.000Z'
+  ),
+  poolEntry(
+    'Andre Dancs',
+    'Andre.Dancs@imw.ca',
+    {
+      A: ['CZE', 'MEX', 'RSA', 'KOR'],
+      B: ['SUI', 'CAN', 'BIH', 'QAT'],
+      C: ['SCO', 'BRA', 'MAR', 'HAI'],
+      D: ['USA', 'PAR', 'TUR', 'AUS'],
+      E: ['GER', 'CIV', 'CUW', 'ECU'],
+      F: ['SWE', 'NED', 'JPN', 'TUN'],
+      G: ['BEL', 'EGY', 'IRN', 'NZL'],
+      H: ['ESP', 'CPV', 'URU', 'KSA'],
+      I: ['NOR', 'FRA', 'SEN', 'IRQ'],
+      J: ['AUT', 'ARG', 'ALG', 'JOR'],
+      K: ['COD', 'POR', 'UZB', 'COL'],
+      L: ['ENG', 'CRO', 'PAN', 'GHA'],
+    },
+    '2026-06-02T09:48:06.000Z'
+  ),
+  poolEntry(
+    'Gary Lau',
+    'Gary.Lau@imw.ca',
+    {
+      A: ['MEX', 'KOR', 'RSA', 'CZE'],
+      B: ['SUI', 'CAN', 'QAT', 'BIH'],
+      C: ['BRA', 'MAR', 'SCO', 'HAI'],
+      D: ['TUR', 'USA', 'AUS', 'PAR'],
+      E: ['GER', 'ECU', 'CIV', 'CUW'],
+      F: ['NED', 'JPN', 'SWE', 'TUN'],
+      G: ['BEL', 'IRN', 'EGY', 'NZL'],
+      H: ['ESP', 'URU', 'KSA', 'CPV'],
+      I: ['FRA', 'SEN', 'NOR', 'IRQ'],
+      J: ['ARG', 'AUT', 'ALG', 'JOR'],
+      K: ['POR', 'COL', 'COD', 'UZB'],
+      L: ['ENG', 'CRO', 'PAN', 'GHA'],
+    },
+    '2026-06-02T11:17:48.000Z'
+  ),
+];
