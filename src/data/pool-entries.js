@@ -12,8 +12,7 @@ function poolEntry(name, email, groups, updatedAt) {
 }
 
 /** Official pool entries synced from OneDrive Group Stage Entries.xlsx */
-export const POOL_ENTRIES = [
-  poolEntry(
+export const POOL_ENTRIES = [  poolEntry(
     'Abner Chinchilla',
     'abner.chinchilla@imw.ca',
     {
@@ -146,4 +145,24 @@ export const POOL_ENTRIES = [
     },
     '2026-06-03T15:47:34.796Z'
   ),
+  poolEntry(
+    'Stephan Chaland',
+    'stephane.chaland@imw.ca',
+    {
+      A: ['MEX', 'KOR', 'RSA', 'CZE'],
+      B: ['SUI', 'CAN', 'BIH', 'QAT'],
+      C: ['BRA', 'MAR', 'HAI', 'SCO'],
+      D: ['TUR', 'USA', 'PAR', 'AUS'],
+      E: ['GER', 'CIV', 'ECU', 'CUW'],
+      F: ['NED', 'JPN', 'SWE', 'TUN'],
+      G: ['BEL', 'EGY', 'IRN', 'NZL'],
+      H: ['ESP', 'URU', 'KSA', 'CPV'],
+      I: ['FRA', 'SEN', 'NOR', 'IRQ'],
+      J: ['ARG', 'ALG', 'AUT', 'JOR'],
+      K: ['POR', 'COL', 'COD', 'UZB'],
+      L: ['ENG', 'CRO', 'GHA', 'PAN'],
+    },
+    '2026-06-04T14:56:36.576Z'
+  ),
 ];
+
